@@ -1,0 +1,51 @@
+{
+  "name": "local-services-marketplace",
+  "version": "1.0.0",
+  "description": "A complete full-stack local services marketplace web application",
+  "main": "index.js",
+  "scripts": {
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend/local-services-frontend && pnpm install",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend/local-services-frontend && pnpm run dev",
+    "build:frontend": "cd frontend/local-services-frontend && pnpm run build",
+    "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend/local-services-frontend && pnpm run test",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend/local-services-frontend && pnpm run lint",
+    "setup": "npm run install:all && npm run build:frontend"
+  },
+  "keywords": [
+    "marketplace",
+    "local-services",
+    "react",
+    "nodejs",
+    "mongodb",
+    "express",
+    "fullstack"
+  ],
+  "author": "Local Services Marketplace Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/local-services-marketplace.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/local-services-marketplace/issues"
+  },
+  "homepage": "https://github.com/your-username/local-services-marketplace#readme"
+}
+

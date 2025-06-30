@@ -1,0 +1,41 @@
+# Global ignores
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv
+.env
+.env.*  # for any .env.local etc.
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# VSCode
+.vscode/
+
+# Uploaded files
+uploads/
+
+# Build output
+dist/
+build/
+
+# Misc
+*.bak
+*.tmp
+*.swp
+*.swo
+
+# Docker/CI
+docker-compose.yml
+Dockerfile
+setup.sh
+nginx.conf
