@@ -9,7 +9,10 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://taskbazaar-1.onrender.com"
+    ],
     methods: ["GET", "POST"]
   }
 });
@@ -19,7 +22,10 @@ connectDB();
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  origin: [
+    "http://localhost:5173",
+    "https://taskbazaar-1.onrender.com"
+  ],
   credentials: true
 }));
 app.use(express.json());
