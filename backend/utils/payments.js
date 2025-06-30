@@ -8,7 +8,7 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
 
 paypal.configure({
   mode: process.env.NODE_ENV === 'production' ? 'live' : 'sandbox',
@@ -87,6 +87,9 @@ const createRazorpaySubscription = async (planId, customerId, customerEmail) => 
 
 // Stripe functions
 const createStripeSubscription = async (planId, customerId, customerEmail) => {
+  if (!stripe) {
+    throw new Error('Stripe is not configured.');
+  }
   try {
     const plan = SUBSCRIPTION_PLANS[planId];
     if (!plan) {
@@ -272,6 +275,9 @@ const verifyRazorpaySignature = (orderId, paymentId, signature) => {
 };
 
 const verifyStripeSignature = (payload, signature) => {
+  if (!stripe) {
+    throw new Error('Stripe is not configured.');
+  }
   try {
     return stripe.webhooks.constructEvent(
       payload,
