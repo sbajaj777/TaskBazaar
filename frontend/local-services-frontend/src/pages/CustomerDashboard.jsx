@@ -38,9 +38,14 @@ const CustomerDashboard = () => {
         fetchDashboardData();
       }
     };
-
-    window.addEventListener('focus', handleFocus);
-    return () => window.removeEventListener('focus', handleFocus);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('focus', handleFocus);
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('focus', handleFocus);
+      }
+    };
   }, [user?._id]);
 
   const fetchDashboardData = async () => {

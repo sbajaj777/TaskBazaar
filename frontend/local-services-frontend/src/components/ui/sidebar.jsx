@@ -77,18 +77,24 @@ function SidebarProvider({
 
   // Adds a keyboard shortcut to toggle the sidebar.
   React.useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (
-        event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
-        (event.metaKey || event.ctrlKey)
-      ) {
-        event.preventDefault()
-        toggleSidebar()
+    if (typeof window !== 'undefined') {
+      const handleKeyDown = (event) => {
+        if (
+          event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
+          (event.metaKey || event.ctrlKey)
+        ) {
+          event.preventDefault()
+          toggleSidebar()
+        }
       }
-    }
 
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown)
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener("keydown", handleKeyDown);
+      }
+    };
   }, [toggleSidebar])
 
   // We add a state so that we can do data-state="expanded" or "collapsed".
@@ -262,8 +268,7 @@ function SidebarRail({
       title="Toggle Sidebar"
       className={cn(
         "hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex",
-        "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",
-        "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
+        "in-data-[side=left][data-state=collapsed]_&]:cursor-e-resize in-data-[side=right][data-state=collapsed]_&]:cursor-w-resize",
         "hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full",
         "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
         "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",

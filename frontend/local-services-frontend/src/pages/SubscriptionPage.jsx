@@ -197,8 +197,10 @@ const SubscriptionPage = () => {
         },
         theme: { color: '#3B82F6' },
       };
-      const rzp = new window.Razorpay(options);
-      rzp.open();
+      if (typeof window !== 'undefined' && window.Razorpay) {
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+      }
     } catch (err) {
       setBuyMessage('Payment failed. Please try again.');
     } finally {
@@ -239,14 +241,20 @@ const SubscriptionPage = () => {
           }
         };
         
-        const rzp = new window.Razorpay(options);
-        rzp.open();
+        if (typeof window !== 'undefined') {
+          const rzp = new window.Razorpay(options);
+          rzp.open();
+        }
       } else if (selectedGateway === 'stripe') {
         // Redirect to Stripe Checkout
-        window.location.href = response.data.checkoutUrl;
+        if (typeof window !== 'undefined') {
+          window.location.href = response.data.checkoutUrl;
+        }
       } else if (selectedGateway === 'paypal') {
         // Redirect to PayPal
-        window.location.href = response.data.approvalUrl;
+        if (typeof window !== 'undefined') {
+          window.location.href = response.data.approvalUrl;
+        }
       }
     } catch (error) {
       console.error('Error creating subscription:', error);

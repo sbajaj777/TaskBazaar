@@ -50,8 +50,14 @@ const ProviderDashboard = ({ defaultTab = 'overview' }) => {
     setActiveTab(tabParam || defaultTab);
     // Refresh BidCoins on window/tab focus
     const handleFocus = () => fetchBidCoins();
-    window.addEventListener('focus', handleFocus);
-    return () => window.removeEventListener('focus', handleFocus);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('focus', handleFocus);
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('focus', handleFocus);
+      }
+    };
   }, [tabParam]);
 
   const fetchDashboardData = async () => {
