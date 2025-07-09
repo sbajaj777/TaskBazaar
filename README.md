@@ -2,6 +2,11 @@
 
 A complete full-stack web application that connects customers with local service providers. Built with React (frontend), Node.js/Express (backend), and MongoDB (database).
 
+<p align="center">
+  🔗 <a href="https://taskbazaar-1.onrender.com/" target="_blank"><strong>Live Demo</strong></a>
+</p>
+
+
 ## 🚀 Features
 
 ### For Customers
